@@ -1,3 +1,8 @@
+import 'package:design_patterns_with_dart/creational_design_patterns/builder_pattern/car_product.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/builder_pattern/director.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/builder_pattern/ibuilder.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/builder_pattern/motorcycle_product.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/builder_pattern/product.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/address.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/employee_prototype.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/reg_employee.dart';
@@ -48,4 +53,18 @@ void main(List<String> arguments) {
   print('prototype1 shallow copy: \n ${shallowCopy1.toString()}');
   print('prototype1 deep copy: \n ${deepCopy1.toString()}');
   print('===============================');
+
+  ///About Builder Pattern
+  print('===============================');
+  Director director = Director();
+  IBuilder car = CarProduct(brand: 'JEEP');
+  IBuilder motorcycle = MotorcycleProduct(brand: 'HONDA');
+
+  director.construct(iBuilder: car);
+  Product carProduct = car.getProduct();
+  print('Car => ${carProduct.showPart()}');
+
+  director.construct(iBuilder: motorcycle);
+  Product motorcycleProduct = motorcycle.getProduct();
+  print('Motorcycle => ${motorcycleProduct.showPart()}');
 }
