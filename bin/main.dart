@@ -3,6 +3,12 @@ import 'package:design_patterns_with_dart/creational_design_patterns/builder_pat
 import 'package:design_patterns_with_dart/creational_design_patterns/builder_pattern/ibuilder.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/builder_pattern/motorcycle_product.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/builder_pattern/product.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/factory_pattern/abstract_factory/abstract_factory.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/factory_pattern/abstract_factory/ibank.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/factory_pattern/abstract_factory/icharity.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/factory_pattern/anti_pattern.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/factory_pattern/factory_method/factory_method.dart';
+import 'package:design_patterns_with_dart/creational_design_patterns/factory_pattern/factory_method/iproduct.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/address.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/employee_prototype.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/reg_employee.dart';
@@ -56,6 +62,7 @@ void main(List<String> arguments) {
 
   ///About Builder Pattern
   print('===============================');
+  print('"Builder Pattern"');
   Director director = Director();
   IBuilder car = CarProduct(brand: 'JEEP');
   IBuilder motorcycle = MotorcycleProduct(brand: 'HONDA');
@@ -67,4 +74,33 @@ void main(List<String> arguments) {
   director.construct(iBuilder: motorcycle);
   Product motorcycleProduct = motorcycle.getProduct();
   print('Motorcycle => ${motorcycleProduct.showPart()}');
+
+  ///About Factory Method and Abstract Factory Patterns
+  print('===============================');
+  print('"Factory Method and Abstract Factory Patterns"');
+
+  //The main difference between a “factory method” and an “abstract factory” is that the factory method is a single method,
+  // and an abstract factory is an object.
+  //The factory method is just a method, it can be overridden in a subclass,
+  // whereas the abstract factory is an object that has multiple factory methods on it.
+
+  print('\n');
+  print('Anti Factory Pattern');
+  AntiPattern antiPattern = AntiPattern();
+  antiPattern.checkProduct();
+
+  print('\n');
+  print('Factory Method Pattern');
+  FactoryMethod factoryMethod = FactoryMethod();
+  IProduct? product = factoryMethod.createProduct(condition: '123');
+  print(product?.doSomething());
+
+  print('\n');
+  print('Abstract Factory Pattern');
+  AbstractFactory abstractFactory = AbstractFactory();
+  IBank? bank = abstractFactory.createBank(cardNumber: 'cip123');
+  print(bank?.discount());
+
+  ICharity? charity = abstractFactory.createCharity(inviteCode: '111');
+  print(charity?.fundraising());
 }
