@@ -2,7 +2,7 @@ import 'package:design_patterns_with_dart/creational_design_patterns/prototype_p
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/employee_prototype.dart';
 
 class RegEmployee extends EmployeePrototype {
-  ///Shallow copy clone the object and you can update any data value but the two objects have the same reference.
+  ///Shallow copy clone the object and you can update any data value but any reference data types have the same reference (address) in memory for the two objects.
   @override
   EmployeePrototype shallowCopy() {
     return this;

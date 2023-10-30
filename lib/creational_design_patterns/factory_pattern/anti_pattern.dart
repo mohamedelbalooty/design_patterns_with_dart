@@ -2,7 +2,7 @@ import 'dart:io';
 import 'factory_method/product_a.dart';
 import 'factory_method/product_b.dart';
 
-///This is the anti pattern from (Factory Pattern) because all logic to get the purpose product is done on clint.
+///This is the anti pattern from (Factory Pattern) because all logic to get the purpose product is done on client.
 class AntiPattern {
   final ProductA productA = ProductA();
   final ProductB productB = ProductB();

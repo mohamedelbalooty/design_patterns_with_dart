@@ -14,7 +14,7 @@ class Singleton2 {
   //And this is called lazy initialization
   Singleton2._();
 
-  //The object when you want to create an object like a normal way
+  //The object when you want to create an object like a normal way and return the same instance created
   factory Singleton2() => _instance;
 
   static final Singleton2 _instance = Singleton2._();
