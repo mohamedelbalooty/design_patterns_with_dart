@@ -13,7 +13,10 @@ import 'package:design_patterns_with_dart/creational_design_patterns/prototype_p
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/employee_prototype.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/reg_employee.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/singleton_pattern/singleton_pattern.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/decorator_pattern/email_notification_service_decorator.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/proxy.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/sms_service.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/sms_service_provider.dart';
 import 'package:design_patterns_with_dart/test.dart'
     as design_patterns_with_dart;
 
@@ -108,9 +111,9 @@ void main(List<String> arguments) {
 
   //In Proxy we prevent calling sendSms method directly from smsServiceProvider object.
 
-  ///About Proxy Method Pattern
+  ///About Proxy Pattern
   print('===============================');
-  print('"Proxy Method Pattern"');
+  print('"Proxy Pattern"');
 
   Proxy proxy = Proxy();
   print(proxy.sendSms(
@@ -129,4 +132,13 @@ void main(List<String> arguments) {
       clientId: 1, mobileNumber: '0111111111', smsMessage: 'SMS 1'));
   print(proxy.sendSms(
       clientId: 2, mobileNumber: '0122222222', smsMessage: 'SMS 2'));
+
+  ///About Decorator Pattern
+  print('===============================');
+  print('"Decorator Pattern"');
+
+  SmsService smsServiceProvider = SmsServiceProvider();
+  EmailNotificationServiceDetector emailNotificationServiceDetector = EmailNotificationServiceDetector();
+  emailNotificationServiceDetector.setService(smsServiceProvider);
+  print(emailNotificationServiceDetector.sendSms(clientId: 1, mobileNumber: '0133333333', smsMessage: 'New Email SMS'));
 }
