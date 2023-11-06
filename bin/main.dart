@@ -13,6 +13,10 @@ import 'package:design_patterns_with_dart/creational_design_patterns/prototype_p
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/employee_prototype.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/prototype_pattern/reg_employee.dart';
 import 'package:design_patterns_with_dart/creational_design_patterns/singleton_pattern/singleton_pattern.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/adepter_pattern/employee.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/adepter_pattern/machine_operator.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/adepter_pattern/salary_adeper.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/adepter_pattern/salary_calculator.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/decorator_pattern/email_notification_service_decorator.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/proxy.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/sms_service.dart';
@@ -78,6 +82,7 @@ void main(List<String> arguments) {
   director.construct(iBuilder: motorcycle);
   Product motorcycleProduct = motorcycle.getProduct();
   print('Motorcycle => ${motorcycleProduct.showPart()}');
+  print('===============================');
 
   ///About Factory Method and Abstract Factory Patterns
   print('===============================');
@@ -107,14 +112,13 @@ void main(List<String> arguments) {
 
   ICharity? charity = abstractFactory.createCharity(inviteCode: '111');
   print(charity?.fundraising());
-
-
-  //In Proxy we prevent calling sendSms method directly from smsServiceProvider object.
+  print('===============================');
 
   ///About Proxy Pattern
   print('===============================');
   print('"Proxy Pattern"');
 
+  //In Proxy we prevent calling sendSms method directly from smsServiceProvider object.
   Proxy proxy = Proxy();
   print(proxy.sendSms(
       clientId: 1, mobileNumber: '0111111111', smsMessage: 'SMS 1'));
@@ -141,4 +145,30 @@ void main(List<String> arguments) {
   EmailNotificationServiceDetector emailNotificationServiceDetector = EmailNotificationServiceDetector();
   emailNotificationServiceDetector.setService(smsServiceProvider);
   print(emailNotificationServiceDetector.sendSms(clientId: 1, mobileNumber: '0133333333', smsMessage: 'New Email SMS'));
+  print('===============================');
+
+  ///About Adapter Pattern
+  print('===============================');
+  print('"Adapter Pattern"');
+
+  //Using anti adapter pattern
+  ///Object 1
+  Employee antiEmployee = Employee(name: 'Mohamed', basicSalary: 2000);
+  SalaryCalculator calculator = SalaryCalculator();
+  ///Object 2
+  MachineOperator antiOperator = MachineOperator(name: 'Ali', basicSalary: antiEmployee.basicSalary, shiftCode: 111);
+  //After assign operator basic salary by employee basic salary this is an image from adapter pattern,
+  // but i create 2 objects on the client and create casting process on the client also.
+  print('Employee salary is ${calculator.calculateSalary(antiEmployee)}');
+  print('Machine Operator salary is ${calculator.calculateSalary(antiEmployee)}');
+
+  //Using adepter pattern
+  SalaryAdepter adepter = SalaryAdepter();
+  MachineOperator operator = MachineOperator(name: 'Ahmed', basicSalary: 3000, shiftCode: 000);
+  //After using adapter pattern you can't need to create 2 objects from employee and operator
+  // because if you want to calculate employee you go to initialize employee
+  // and the same thing is occurred when you want to calculate operator.
+  print('Employee Salary after using adapter pattern is ${adepter.calculateBasicSalary(operator)}');
+  print('===============================');
+
 }

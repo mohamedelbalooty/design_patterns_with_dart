@@ -1,5 +1,6 @@
 import 'sms_service_idecorator.dart';
 
+///In the proxy implementation we add more functionality without update on the base class (Sms Service)
 class EmailNotificationServiceDetector extends SmsServiceIDecorator {
   String smsSendNotification(
       {required int clientId, required String notification}) {
@@ -14,7 +15,8 @@ class EmailNotificationServiceDetector extends SmsServiceIDecorator {
   }) {
     final String sms = super.sendSms(
         clientId: clientId, mobileNumber: mobileNumber, smsMessage: smsMessage);
-    final String result = '$sms ${smsSendNotification(clientId: clientId, notification: smsMessage)}';
+    final String result =
+        '$sms ${smsSendNotification(clientId: clientId, notification: smsMessage)}';
     return result;
   }
 }
