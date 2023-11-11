@@ -18,6 +18,9 @@ import 'package:design_patterns_with_dart/structural_design_patterns/adepter_pat
 import 'package:design_patterns_with_dart/structural_design_patterns/adepter_pattern/salary_adeper.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/adepter_pattern/salary_calculator.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/decorator_pattern/email_notification_service_decorator.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/facade_pattern/basket_item.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/facade_pattern/facade/purchase_order.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/facade_pattern/operations/shopping_basket.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/proxy.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/sms_service.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/sms_service_provider.dart';
@@ -142,9 +145,11 @@ void main(List<String> arguments) {
   print('"Decorator Pattern"');
 
   SmsService smsServiceProvider = SmsServiceProvider();
-  EmailNotificationServiceDetector emailNotificationServiceDetector = EmailNotificationServiceDetector();
+  EmailNotificationServiceDetector emailNotificationServiceDetector =
+      EmailNotificationServiceDetector();
   emailNotificationServiceDetector.setService(smsServiceProvider);
-  print(emailNotificationServiceDetector.sendSms(clientId: 1, mobileNumber: '0133333333', smsMessage: 'New Email SMS'));
+  print(emailNotificationServiceDetector.sendSms(
+      clientId: 1, mobileNumber: '0133333333', smsMessage: 'New Email SMS'));
   print('===============================');
 
   ///About Adapter Pattern
@@ -155,20 +160,45 @@ void main(List<String> arguments) {
   ///Object 1
   Employee antiEmployee = Employee(name: 'Mohamed', basicSalary: 2000);
   SalaryCalculator calculator = SalaryCalculator();
+
   ///Object 2
-  MachineOperator antiOperator = MachineOperator(name: 'Ali', basicSalary: antiEmployee.basicSalary, shiftCode: 111);
+  MachineOperator antiOperator = MachineOperator(
+      name: 'Ali', basicSalary: antiEmployee.basicSalary, shiftCode: 111);
   //After assign operator basic salary by employee basic salary this is an image from adapter pattern,
   // but i create 2 objects on the client and create casting process on the client also.
   print('Employee salary is ${calculator.calculateSalary(antiEmployee)}');
-  print('Machine Operator salary is ${calculator.calculateSalary(antiEmployee)}');
+  print(
+      'Machine Operator salary is ${calculator.calculateSalary(antiEmployee)}');
 
   //Using adepter pattern
   SalaryAdepter adepter = SalaryAdepter();
-  MachineOperator operator = MachineOperator(name: 'Ahmed', basicSalary: 3000, shiftCode: 000);
+  MachineOperator operator =
+      MachineOperator(name: 'Ahmed', basicSalary: 3000, shiftCode: 000);
   //After using adapter pattern you can't need to create 2 objects from employee and operator
   // because if you want to calculate employee you go to initialize employee
   // and the same thing is occurred when you want to calculate operator.
-  print('Employee Salary after using adapter pattern is ${adepter.calculateBasicSalary(operator)}');
+  print(
+      'Employee Salary after using adapter pattern is ${adepter.calculateBasicSalary(operator)}');
   print('===============================');
 
+  ///About Facade Pattern
+  print('===============================');
+  print('"Facade Pattern"');
+
+  ShoppingBasket basket = ShoppingBasket();
+  basket.addItemToBasket(
+      item: BasketItem(itemId: 1, itemPrice: 50, quantity: 3));
+  basket.addItemToBasket(
+      item: BasketItem(itemId: 2, itemPrice: 80, quantity: 1));
+
+  PurchaseOrder order = PurchaseOrder();
+  bool orderCreated = order.createOrder(
+    basket: basket,
+    customerInfo: 'Name: Mohamed, Address: El-Mahala',
+    bankInfo: 'Cairo Bank',
+    customerNumber: '+20 122222222',
+    sms: 'Order Created Successfully',
+  );
+  print(orderCreated);
+  print('===============================');
 }

@@ -9,10 +9,11 @@ class Proxy {
 
   final Map<String, dynamic> clientSmsCount = {};
 
-  String sendSms(
-      {required int clientId,
-      required String mobileNumber,
-      required String smsMessage}) {
+  String sendSms({
+    required int clientId,
+    required String mobileNumber,
+    required String smsMessage,
+  }) {
     //Lazy initialization
     _smsService ??= SmsServiceProvider();
 

@@ -1,6 +1,7 @@
 import 'sms_service_idecorator.dart';
 
-///In the proxy implementation we add more functionality without update on the base class (Sms Service)
+///In the proxy implementation we add more functionality without update on the base class (Sms Service).
+
 class EmailNotificationServiceDetector extends SmsServiceIDecorator {
   String smsSendNotification(
       {required int clientId, required String notification}) {
