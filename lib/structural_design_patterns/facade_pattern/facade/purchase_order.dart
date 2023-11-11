@@ -41,7 +41,6 @@ class PurchaseOrder {
       //Send sms notification.
       SmsNotifications smsNotifications = SmsNotifications();
       smsNotifications.sendSmsNotification(to: customerNumber, sms: sms);
-      
       return true;
     } else {
       return false;

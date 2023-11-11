@@ -21,6 +21,8 @@ import 'package:design_patterns_with_dart/structural_design_patterns/decorator_p
 import 'package:design_patterns_with_dart/structural_design_patterns/facade_pattern/basket_item.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/facade_pattern/facade/purchase_order.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/facade_pattern/operations/shopping_basket.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/flywaight_pattern/factory_flyweight_discount_calculator.dart';
+import 'package:design_patterns_with_dart/structural_design_patterns/flywaight_pattern/idiscount_calculator.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/proxy.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/sms_service.dart';
 import 'package:design_patterns_with_dart/structural_design_patterns/proxy_pattern/sms_service_provider.dart';
@@ -200,5 +202,17 @@ void main(List<String> arguments) {
     sms: 'Order Created Successfully',
   );
   print(orderCreated);
+  print('===============================');
+
+  ///About Flyweight Pattern
+  print('===============================');
+  print('"Flyweight Pattern"');
+  FactoryFlyweightDiscountPattern flyweightDiscount =
+      FactoryFlyweightDiscountPattern();
+  IDiscountCalculator discountCalculator =
+      flyweightDiscount.createDiscountCalculator(currentDate: 'day');
+  double discountValue =
+      discountCalculator.getDiscountValue(currentDate: 'day');
+  print(discountValue);
   print('===============================');
 }
